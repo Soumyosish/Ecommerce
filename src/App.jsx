@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
+import { Routes, Route, Link, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import './App.css';
 import { ThemeProvider, ThemeContext } from './components/ThemeContext';
 import ProductList from './components/ProductList';
@@ -82,7 +82,10 @@ function AppContent() {
               </>
             )}
             {isAuthenticated ? (
-              <button className="nav-logout" onClick={() => setIsAuthenticated(false)}>Logout</button>
+              <button className="nav-logout" onClick={() => {
+                setIsAuthenticated(false);
+                navigate('/');
+              }}>Logout</button>
             ) : (
               <Link to="/login" className="nav-login">Login</Link>
             )}
@@ -144,6 +147,7 @@ function AppContent() {
             path="/register"
             element={<Register />}
           />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
     </div>
